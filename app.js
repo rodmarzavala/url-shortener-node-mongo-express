@@ -62,7 +62,13 @@ app.get('/:encoded_id', function(req, res){
   // check if url already exists in database
   Url.findOne({_id: id}, function (err, doc){
     if (doc) {
-      res.redirect(doc.long_url);
+
+      var totalOfVisits = doc.visits + 1;
+
+      Url.update({ _id:id }, { $set: { visits: totalOfVisits }}, function(err){
+        res.redirect(doc.long_url);
+      });
+
     } else {
       res.redirect(config.webhost);
     }

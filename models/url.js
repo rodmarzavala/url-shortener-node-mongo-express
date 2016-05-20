@@ -12,16 +12,19 @@ var counter = mongoose.model('counter', CounterSchema);
 var urlSchema = new Schema({
   _id: {type: Number, index: true},
   long_url: String,
-  created_at: Date
+  created_at: Date,
+  visits: Number
 });
 
 urlSchema.pre('save', function(next){
   var doc = this;
-  counter.findByIdAndUpdate({_id: 'url_count'}, {$inc: {seq: 1} }, function(error, counter) {
+  counter.findByIdAndUpdate({_id: 'url_count'}, {$inc: {seq: 1} }, { "upsert": true, "new": true }, function(error, counter) {
       if (error)
           return next(error);
       doc.created_at = new Date();
       doc._id = counter.seq;
+      doc.visits = 0;
+
       next();
   });
 });
