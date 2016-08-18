@@ -10,7 +10,7 @@ var base58 = require('./base58.js');
 var Url = require('./models/url');
 var port = process.env.PORT || config.port;
 
-mongoose.connect('mongodb://heroku_b3jq9rfs:499ed9usgblhh4kandfv5230gl@ds161255.mlab.com:61255/heroku_b3jq9rfs');
+mongoose.connect(config.db.uri);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
