@@ -1,9 +1,12 @@
 var config = {};
 
 config.db = {};
-config.webhost = 'http://192.168.10.141:3000/';
+config.webhost = 'https://mini-praga.herokuapp.com/';
 
 config.db.host = 'localhost';
 config.db.name = 'url_shortener';
+config.db.uri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/url_shortener';
+
+config.port = 3000;
 
 module.exports = config;

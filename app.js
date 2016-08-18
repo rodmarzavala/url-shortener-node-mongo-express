@@ -8,8 +8,9 @@ var base58 = require('./base58.js');
 
 // grab the url model
 var Url = require('./models/url');
+var port = process.env.PORT || config.port;
 
-mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
+mongoose.connect(config.db.uri);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -76,6 +77,6 @@ app.get('/:encoded_id', function(req, res){
 
 });
 
-var server = app.listen(3000, function(){
-  console.log('Server listening on port 3000');
+var server = app.listen(port, function(){
+  console.log('Server listening on port ' + port);
 });
